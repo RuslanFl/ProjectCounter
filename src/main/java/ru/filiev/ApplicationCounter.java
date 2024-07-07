@@ -11,7 +11,7 @@ public class ApplicationCounter {
     private final FileManager fileManager;
 
     public ApplicationCounter(String fileName) {
-        this.fileManager = new  FileManager(fileName);
+        this.fileManager = new FileManager(fileName);
     }
 
     public ApplicationCounter(String pathToFolderStorage, String fileName) {
@@ -40,9 +40,7 @@ public class ApplicationCounter {
                     System.out.println("Значение счетчика сброшено. Новое значение равно: " + counterHistoryPojo.getValue());
                     fileManager.writeFile(counterHistoryPojo);
                 }
-                case СПИСОК_КОМАНД -> {
-                    System.out.println(Commands.getAllCommands());
-                }
+                case СПИСОК_КОМАНД -> System.out.println(Commands.getAllCommands());
                 default ->
                         System.out.println("Команда найдена, но не добавлена в case. \n" + Commands.getAllCommands());
             }

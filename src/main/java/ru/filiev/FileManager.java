@@ -10,13 +10,13 @@ public class FileManager {
 
     public FileManager(String fileName) {
         this.FILE_NAME = fileName;
-        this.PATH_TO_FOLDER_STORAGE = new File("src/main/resource/temp/folder_counter");
+        this.PATH_TO_FOLDER_STORAGE = new File("src/main/resource/default_folder_counter");
         PATH_TO_FOLDER_STORAGE.mkdirs();
     }
 
     public FileManager(String pathToFolderStorage, String fileName) {
         this.FILE_NAME = fileName;
-        this.PATH_TO_FOLDER_STORAGE = new File(pathToFolderStorage);
+        this.PATH_TO_FOLDER_STORAGE = new File("src/temp/" + pathToFolderStorage);
         PATH_TO_FOLDER_STORAGE.mkdirs();
     }
 
