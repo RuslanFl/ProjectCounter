@@ -11,7 +11,7 @@ public class ApplicationCounter {
     private final FileManager fileManager;
 
     public ApplicationCounter(String fileName) {
-        this.fileManager = new FileManager(fileName);
+        this.fileManager = new  FileManager(fileName);
     }
 
     public ApplicationCounter(String pathToFolderStorage, String fileName) {
