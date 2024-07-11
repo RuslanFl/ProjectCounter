@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
-import static ru.filiev.Commands.СПИСОК_КОМАНД;
+import static ru.filiev.CommandsDict.СПИСОК_КОМАНД;
 
 public class ApplicationCounter {
     private final FileManager fileManager;
@@ -24,7 +24,7 @@ public class ApplicationCounter {
 
         while (true) {
             System.out.print("\nВведите команду или команду '/help' - для получения инструкций:");
-            Commands commands = getCommand(new BufferedReader(new InputStreamReader(System.in)));
+            CommandsDict commands = getCommand(new BufferedReader(new InputStreamReader(System.in)));
             switch (commands) {
                 case УВЕЛИЧИТЬ_СЧЕТЧИК -> {
                     counterHistoryPojo.incrementValue();
@@ -40,14 +40,13 @@ public class ApplicationCounter {
                     System.out.println("Значение счетчика сброшено. Новое значение равно: " + counterHistoryPojo.getValue());
                     fileManager.writeFile(counterHistoryPojo);
                 }
-                case СПИСОК_КОМАНД -> System.out.println(Commands.getAllCommands());
-                default ->
-                        System.out.println("Команда найдена, но не добавлена в case. \n" + Commands.getAllCommands());
+                case СПИСОК_КОМАНД -> System.out.println(getAllCommands());
+                default -> System.out.println("Команда найдена, но не добавлена в case. \n" + getAllCommands());
             }
         }
     }
 
-    private Commands getCommand(BufferedReader inputStream) {
+    private CommandsDict getCommand(BufferedReader inputStream) {
         String input;
         try {
             input = inputStream.readLine();
@@ -55,11 +54,24 @@ public class ApplicationCounter {
             throw new RuntimeException("Ошибка (IOException) ввода/ввывода: ", e.getCause());
         }
 
-        return Arrays.stream(Commands.values()).toList().stream().
+        return Arrays.stream(CommandsDict.values()).toList().stream().
                 filter(
                         v -> v.getCommand().equals(
                                 input.replaceAll("[\\s]{2,}", "")
                         )
                 ).findFirst().orElse(СПИСОК_КОМАНД);
+    }
+
+    private String getAllCommands() {
+        var commandList = new StringBuffer("\nСписко допустимых команд:");
+        Arrays.stream(CommandsDict.values()).toList()
+                .forEach(command ->
+                        commandList
+                                .append("\n")
+                                .append(command.getCommand())
+                                .append(" - ")
+                                .append(command.getDescription())
+                );
+        return commandList.toString();
     }
 }

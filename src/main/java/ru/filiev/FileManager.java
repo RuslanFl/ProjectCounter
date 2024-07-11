@@ -7,7 +7,6 @@ public class FileManager {
     private final String FILE_NAME;
     private final File PATH_TO_FOLDER_STORAGE;
 
-
     public FileManager(String fileName) {
         this.FILE_NAME = fileName;
         this.PATH_TO_FOLDER_STORAGE = new File("src/main/resource/default_folder_counter");
